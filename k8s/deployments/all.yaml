@@ -18,12 +18,14 @@ spec:
     type: RollingUpdate
   template:
     metadata:
+      annotations:
+        sidecar.istio.io/rewriteAppHTTPProbers: "true"
       labels:
         app:  test-app-employee
     spec:
       containers:
       - name:  test-app-employee
-        image:  docker.io/hihellobolke/test-app-employee:latest
+        image:  docker.io/hihellobolke/test-app-employee:1
         resources:
           requests:
             cpu: 100m
@@ -79,8 +81,8 @@ spec:
         app:  redis
     spec:
       containers:
-      - name:  redis
-        image:  docker.io/redis/redis-stack-server:latest
+      - name: redis
+        image: docker.io/redis/redis-stack-server:latest
         resources:
           requests:
             cpu: 100m
@@ -108,3 +110,4 @@ spec:
         - containerPort: 6379
           name:  redis
       restartPolicy: Always
+---
