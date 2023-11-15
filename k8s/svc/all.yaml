@@ -54,6 +54,6 @@ spec:
     protocol: TCP
     targetPort: 8000
   selector:
-    app: test-app-emplotee
+    app: test-app-employee
   sessionAffinity: None
   type: ClusterIP
