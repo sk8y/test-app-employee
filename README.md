@@ -17,12 +17,13 @@ Using docker
 
 ```bash
 # build image
-docker buildx build  -t  shubham4444/test-app-hello:build-test .
+docker buildx build --platform linux/amd64 -t docker.io/hihellobolke/test-app-employee:latest .
 
 # push to docker hub
-docker push  shubham4444/test-app-hello:build-test
+docker push docker.io/hihellobolke/test-app-employee:latest
+
 
 # run docker image
-docker pull shubham4444/test-app-hello:build-test
-docker run -ti -p 8000:8000 docker.io/shubham4444/test-app-hello:build-test
+docker pull shubham4444/test-app-employee:build-test
+docker run -ti -p 8000:8000 docker.io/shubham4444/test-app-employee:build-test
 ```

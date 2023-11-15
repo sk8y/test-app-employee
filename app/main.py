@@ -14,6 +14,8 @@ from redis_om import (
 )
 from redis_om import get_redis_connection
 import csv
+from fastapi.testclient import TestClient
+
 
 app_name = 'test-app-employee'
 app = FastAPI(title=app_name, version='0.0.1', description=app_name, swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
@@ -73,6 +75,9 @@ def load_data() -> int:
 async def root():
     return RedirectResponse("/docs")
 
+@app.get("/healthz")
+async def healthz():
+    return {"status": "ok"}
 
 @app.get("/api/v1/load")
 async def load(request: Request, response: Response):
