@@ -31,4 +31,7 @@ spec:
         host: test-app-hello.test-app.svc.cluster.local
         port:
           number: 80
-
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: gateway-error,connect-failure,refused-stream,500,501,502,503
