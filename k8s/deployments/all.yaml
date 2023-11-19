@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name:  test-app-employee
-        image:  docker.io/hihellobolke/test-app-employee:1
+        image:  docker.io/hihellobolke/test-app-employee:2
         resources:
           limits:
             memory: 128Mi
@@ -130,7 +130,7 @@ spec:
         app: test-app-hello
     spec:
       containers:
-      - image: docker.io/hihellobolke/test-app-hello:1
+      - image: docker.io/hihellobolke/test-app-hello:2
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
