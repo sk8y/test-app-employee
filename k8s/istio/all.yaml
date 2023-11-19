@@ -25,9 +25,10 @@ spec:
   http:
   - match:
     - uri:
-        exact: /
+        prefix: /
     route:
     - destination:
-        host: test-app-hello
+        host: test-app-hello.test-app.svc.cluster.local
         port:
-          number: 8000
+          number: 80
+
