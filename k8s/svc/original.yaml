@@ -1,0 +1,171 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"test-app-employee","namespace":"default"},"spec":{"internalTrafficPolicy":"Cluster","ipFamilies":["IPv4"],"ipFamilyPolicy":"SingleStack","ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":8000}],"selector":{"app":"test-app-employee"},"sessionAffinity":"None","type":"ClusterIP"}}
+  creationTimestamp: "2023-11-15T23:21:28Z"
+  name: test-app-employee
+  namespace: default
+  resourceVersion: "9383993"
+  uid: 3929ae7d-a43f-489a-b1b9-f7a90657dc6e
+spec:
+  clusterIP: 10.100.14.137
+  clusterIPs:
+  - 10.100.14.137
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: test-app-employee
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"cloud.google.com/neg":"{\"ingress\":true}"},"name":"test-app-employee-ext","namespace":"default"},"spec":{"allocateLoadBalancerNodePorts":true,"externalTrafficPolicy":"Cluster","internalTrafficPolicy":"Cluster","ipFamilies":["IPv4"],"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":8000}],"selector":{"app":"test-app-employee"},"sessionAffinity":"None","type":"LoadBalancer"}}
+  creationTimestamp: "2023-11-15T23:21:28Z"
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
+  name: test-app-employee-ext
+  namespace: default
+  resourceVersion: "9382056"
+  uid: ce64d0ad-2e63-4c85-9fa2-f29e0c5ad8be
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.100.14.28
+  clusterIPs:
+  - 10.100.14.28
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    nodePort: 32041
+    port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: test-app-employee
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 35.224.49.54
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"test-app-hello","namespace":"default"},"spec":{"ports":[{"name":"http","port":80,"targetPort":8000}],"selector":{"app":"test-app-hello"},"type":"LoadBalancer"}}
+  creationTimestamp: "2023-11-02T02:13:52Z"
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
+  name: test-app-hello
+  namespace: default
+  resourceVersion: "16791"
+  uid: 0098fc40-659a-4cf3-be79-cb17b31ab31f
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.100.13.16
+  clusterIPs:
+  - 10.100.13.16
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    nodePort: 32036
+    port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: test-app-hello
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.41.44.248
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"test-app-hello"},"name":"test-app-hello-int","namespace":"default"},"spec":{"ports":[{"name":"http","port":80,"targetPort":8000}],"selector":{"app":"test-app-hello"},"type":"ClusterIP"}}
+  creationTimestamp: "2023-11-02T02:13:52Z"
+  labels:
+    app: test-app-hello
+  name: test-app-hello-int
+  namespace: default
+  resourceVersion: "16495"
+  uid: ee68398c-e04f-467c-8fe4-47ce9776cf2f
+spec:
+  clusterIP: 10.100.8.84
+  clusterIPs:
+  - 10.100.8.84
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: test-app-hello
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"redis","namespace":"default"},"spec":{"ports":[{"name":"redis","port":6379,"protocol":"TCP","targetPort":6379}],"selector":{"app":"redis"},"sessionAffinity":"None","type":"ClusterIP"}}
+  creationTimestamp: "2023-11-15T23:11:45Z"
+  name: redis
+  namespace: default
+  resourceVersion: "9377250"
+  uid: c75d69ad-bc15-4b12-b01e-5a2ad8fe49ae
+spec:
+  clusterIP: 10.100.15.127
+  clusterIPs:
+  - 10.100.15.127
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: redis
+    port: 6379
+    protocol: TCP
+    targetPort: 6379
+  selector:
+    app: redis
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
