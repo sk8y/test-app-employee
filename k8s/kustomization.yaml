@@ -8,4 +8,4 @@ resources:
 - ns/all.yaml
 - servicemonitor/all.yaml
 - svc/all.yaml
-
+- istio/all.yaml
