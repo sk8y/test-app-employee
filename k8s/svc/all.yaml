@@ -77,4 +77,19 @@ spec:
     app: test-app-hello
   sessionAffinity: None
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-app-hello-ext
+  namespace: test-app
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: test-app-hello
+  type: LoadBalancer
 
