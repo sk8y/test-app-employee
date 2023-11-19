@@ -16,7 +16,6 @@ Jinja2
 MarkupSafe
 orjson
 prometheus-client
-prometheus-fastapi-instrumentator
 pydantic
 pydantic-extra-types
 pydantic-settings
@@ -36,3 +35,4 @@ uvloop
 watchfiles
 websockets
 aioredis
+starlette_exporter

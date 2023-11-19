@@ -4,7 +4,6 @@ import os
 from fastapi import FastAPI, HTTPException, Request, Response
 import uuid
 from fastapi.responses import RedirectResponse
-from prometheus_fastapi_instrumentator import Instrumentator
 import logging
 import datetime
 from redis_om import (
@@ -15,11 +14,25 @@ from redis_om import (
 from redis_om import get_redis_connection
 import csv
 from fastapi.testclient import TestClient
+from starlette_exporter import PrometheusMiddleware, handle_metrics
 
 
-app_name = 'test-app-employee'
+
+app_name = 'employee'
 app = FastAPI(title=app_name, version='0.0.1', description=app_name, swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
-Instrumentator().instrument(app).expose(app)
+app.add_middleware(
+    PrometheusMiddleware,
+    app_name=app_name,
+    prefix='app',
+    labels={
+      "service": "employee",
+    },
+    group_paths=True,
+    buckets=[0.1, 0.5, 1, 2.5, 10],
+    skip_paths=['/docs', '/openapi.json', '/'],
+    skip_methods=['OPTIONS'],
+    )
+app.add_route("/metrics", handle_metrics)
 
 logger = logging.getLogger(app_name)
 logger.setLevel(logging.DEBUG)
