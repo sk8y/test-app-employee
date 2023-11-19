@@ -10,7 +10,7 @@ spec:
   selector:
     matchLabels:
       app: test-app-employee
-  replicas: 10
+  replicas: 5
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -113,7 +113,7 @@ metadata:
   name: test-app-hello
   namespace: test-app
 spec:
-  replicas: 10
+  replicas: 5
   selector:
     matchLabels:
       app: test-app-hello

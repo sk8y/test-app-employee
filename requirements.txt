@@ -36,3 +36,4 @@ watchfiles
 websockets
 aioredis
 starlette_exporter
+dagger-io
