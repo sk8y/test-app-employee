@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis
-  namespace: default
+  namespace: test-app
 spec:
   selector:
     app: redis
@@ -15,34 +15,34 @@ spec:
     port: 6379
     targetPort: 6379
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-    cloud.google.com/neg: '{"ingress":true}'
-  name: test-app-employee-ext
-  namespace: default
-spec:
-  allocateLoadBalancerNodePorts: true
-  externalTrafficPolicy: Cluster
-  internalTrafficPolicy: Cluster
-  ipFamilies:
-  - IPv4
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 8000
-  selector:
-    app: test-app-employee
-  sessionAffinity: None
-  type: LoadBalancer
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   annotations:
+#     cloud.google.com/neg: '{"ingress":true}'
+#   name: test-app-employee-ext
+#   namespace: test-app
+# spec:
+#   allocateLoadBalancerNodePorts: true
+#   externalTrafficPolicy: Cluster
+#   internalTrafficPolicy: Cluster
+#   ipFamilies:
+#   - IPv4
+#   ports:
+#   - name: http
+#     port: 80
+#     protocol: TCP
+#     targetPort: 8000
+#   selector:
+#     app: test-app-employee
+#   sessionAffinity: None
+#   type: LoadBalancer
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: test-app-employee
-  namespace: default
+  namespace: test-app
 spec:
   internalTrafficPolicy: Cluster
   ipFamilies:
@@ -57,3 +57,24 @@ spec:
     app: test-app-employee
   sessionAffinity: None
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-app-hello
+  namespace: test-app
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: test-app-hello
+  sessionAffinity: None
+  type: ClusterIP
+

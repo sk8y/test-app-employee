@@ -3,14 +3,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name:  test-app-employee
-  namespace: default
+  namespace: test-app
   labels:
     app:  test-app-employee
 spec:
   selector:
     matchLabels:
       app: test-app-employee
-  replicas: 1
+  replicas: 10
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -27,17 +27,17 @@ spec:
       - name:  test-app-employee
         image:  docker.io/hihellobolke/test-app-employee:1
         resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
           limits:
-            cpu: 100m
-            memory: 100Mi
+            cpu: 200m
+            memory: 128Mi
+          requests:
+            cpu: 200m
+            memory: 128Mi
         livenessProbe:
           tcpSocket:
             port: 8000
-          initialDelaySeconds: 5
-          timeoutSeconds: 5
+          initialDelaySeconds: 3
+          timeoutSeconds: 2
           successThreshold: 1
           failureThreshold: 3
           periodSeconds: 10
@@ -45,7 +45,7 @@ spec:
           httpGet:
             path: /healthz
             port: 8000
-          initialDelaySeconds: 5
+          initialDelaySeconds: 3
           timeoutSeconds: 2
           successThreshold: 1
           failureThreshold: 3
@@ -62,7 +62,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name:  redis
-  namespace: default
+  namespace: test-app
   labels:
     app:  redis
 spec:
@@ -84,24 +84,24 @@ spec:
       - name: redis
         image: docker.io/redis/redis-stack-server:latest
         resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
           limits:
-            cpu: 100m
-            memory: 100Mi
+            cpu: 200m
+            memory: 128Mi
+          requests:
+            cpu: 200m
+            memory: 128Mi
         livenessProbe:
           tcpSocket:
             port: 6379
-          initialDelaySeconds: 5
-          timeoutSeconds: 5
+          initialDelaySeconds: 3
+          timeoutSeconds: 2
           successThreshold: 1
           failureThreshold: 3
           periodSeconds: 10
         readinessProbe:
           tcpSocket:
             port: 6379
-          initialDelaySeconds: 5
+          initialDelaySeconds: 3
           timeoutSeconds: 2
           successThreshold: 1
           failureThreshold: 3
@@ -111,3 +111,65 @@ spec:
           name:  redis
       restartPolicy: Always
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-app-hello
+  namespace: test-app
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: test-app-hello
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/rewriteAppHTTPProbers: "true"
+      labels:
+        app: test-app-hello
+    spec:
+      containers:
+      - image: docker.io/hihellobolke/test-app-hello:1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 8000
+            scheme: HTTP
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        name: test-app-hello
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 8000
+            scheme: HTTP
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        resources:
+          limits:
+            cpu: 200m
+            memory: 128Mi
+          requests:
+            cpu: 200m
+            memory: 128Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      restartPolicy: Always
+      serviceAccount: default
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 30
